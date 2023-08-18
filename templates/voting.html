@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Voting</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<style>
+    .h2 {
+        width: 100%;
+        margin: auto;
+    }
+
+    .h1 {
+        width: 100%;
+        margin: auto;
+    }
+
+    #one {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+</style>
+<script>
+    function checkC(b){
+       console.log(b.innerHTML) 
+       window.location = "http://localhost:8000/Success"
+    }
+</script>
+<body>
+    <nav></nav>
+    <div>
+        <body>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">Digital Voting</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">VotingStatus</a>
+                        </li>
+                    </ul>
+                    {% load static %}
+                    <img src="{% static '/profile-user.png' %}" width=20px alt="My image">
+
+                </div>
+            </nav>
+    </div>
+    <div id="one">
+        <h1>Online Voting</h1>
+        <h2>Candidate details</h2>
+        <input type="search" placeholder="search">
+        <h3>Choose any one to vote.Please note that you can vote one time</h3>
+        <ul>
+            {% for candidate in candidates.values %}
+            <div><button onclick="checkC(this)">{{ candidate.firstName }} {{ candidate.lastName }} </button>- {{ candidate.values }}</div>
+        {% endfor %}
+        </ul>
+       <div><h4><label>Click on the person name to vote</label></h4></div></br></div>
+    </div>
+</body>
+</html>

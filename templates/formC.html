@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Cadidate login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<style>
+  h1 {
+    width: 40%;
+    margin: auto;
+    margin-bottom: 0.3em;
+  }
+</style>
+
+<body>
+  <h1>Candidate Registration</h1>
+  <form action="http://localhost:8000/candidatelogin" method="POST">
+    {% csrf_token %}
+    <div>
+      <label>First Name
+        <input placeholder="First naame in adhaar" name="fn" required>
+      </label>
+      <label>Last Name
+        <input placeholder="Last naame in adhaar" name="ln" required>
+      </label>
+      <label>Age
+        <input placeholder="age" name="ag" required>
+      </label>
+      <label>Adhaar number
+        <input placeholder="Adhaar number" name="an" required>
+      </label>
+      <div>
+        <label>Address 1
+          <input placeholder="City" name="c" required>
+        </label>
+        <label>Address 2
+          <input placeholder="Street" name="s" required>
+        </label>
+      </div>
+    </div>
+    <label>Enter your development ideas for people
+      <div>
+        <label>Enter your value1</label>
+        <input name="v1" required>
+      </div>
+      <div>
+        <label>Enter your value2</label>
+        <input name="v2" required>
+      </div>
+      <div>
+        <label>Enter your value3</label>
+        <input name="v3" required>
+      </div>
+    </label>
+    <div>
+      <button>Register</button>
+    </div>
+  </form>
+</body>
+
+</html>

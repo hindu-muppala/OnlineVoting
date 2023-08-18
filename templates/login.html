@@ -1,0 +1,316 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/Poppins'%}">
+    <title>Online Voting</title>
+</head>
+<style>
+    body {
+        margin: 0%;
+    }
+    #one {
+        margin: auto;
+        margin-top: 2.2rem;
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-content: space-around;
+        margin-bottom: 0.5rem;
+    }
+    .img{
+        margin-bottom: 0%;
+        margin-top: 0%;
+    }
+    h1 {
+        display: inline;
+        opacity: 1;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        width: 100%;
+
+    }
+
+    .login {
+        background-color: white;
+        opacity: 1;
+        color: blue;
+        margin: auto;
+        width: 100%;
+    }
+
+    button {
+        margin-bottom: 0.7em;
+    }
+
+    #on {
+        background-color: rgb(207, 207, 233);
+        color: blue;
+        width: 100%;
+        padding-top: 1rem;
+    }
+
+    .h {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.2rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .h label {
+        font-size: larger;
+        font-family: cursive;
+        font-weight: bolder;
+        margin-right: 0.2rem;
+    }
+
+    .h input {
+        width: 120%;
+        height: 2rem;
+    }
+
+    #OTP1 {
+        width: 60%;
+        font-size: larger;
+    }
+    #OTP2 {
+        width: 60%;
+        font-size: larger;
+    }
+
+    #but {
+        border: 0.3rem solid;
+        margin-top: 0.7rem;
+        font-size: large;
+        border: 0.5;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        width: 70%;
+        border-radius: 0.5rem;
+        background-color: rgb(230, 214, 214);
+    }
+
+    #but2 {
+        border: 0.3rem solid;
+        margin-top: 0.7rem;
+        font-size: large;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        width: 70%;
+        border-radius: 0.5rem;
+        background-color: rgb(230, 214, 214);
+    }
+</style>
+
+<body>
+    <div>
+        <div id="on">
+            <h1>Online Voting</h1>
+            {% load static %}
+            <img width="50px" src="{% static '/online.png' %}" alt="My image">
+        </div>
+        <span style="color:black; background-color: rgb(207, 207, 233); display: block;">digital initiative by
+            India</span>
+    </div>
+    <div id="one">
+        <div id="2">
+            <h1 class="login">For Voters</h1>
+            <div class="h">
+                <label>First Name</label>
+                <input required type="text" name="First Name">
+            </div>
+            <div class="h">
+                <label>Second Name</label>
+                <input required type="text" name="Second Name">
+            </div>
+            <div class="h">
+                <label>Adhaar Number</label>
+                <input required type="text" name="Adhaar Name">
+            </div>
+            <div id="ot">
+                {% csrf_token %}
+                <button id="but">Send OTP</button>
+            </div>
+            <div class="h">
+                <label>Enter the OTP</label>
+                <input required type="number" id="OTP1" disabled>
+            </div>
+            <div>
+                <button id="Verify" disabled>Verify & Login</button>
+            </div>
+        </div>
+        <div id="3">
+            <h1 class="login">For Candidates</h1>
+            <div>
+                <div class="h">
+                    <label>First Name</label>
+                    <input required type="text" name="First Name">
+                </div>
+                <div class="h">
+                    <label>Second Name</label>
+                    <input required type="text" name="Second Name">
+                </div>
+                <div class="h">
+                    <label>Adhaar Number</label>
+                    <input required type="text" name="Adhaar Name">
+                </div>
+                <div id="ot2">
+                    {% csrf_token %}
+                    <button id="but2">Send OTP</button>
+                </div>
+                <div class="h">
+                    <label>Enter the OTP</label>
+                    <input disabled required type="number" id="OTP2">
+                </div>
+                <button id="registerBtn" disabled>Verify & Register</button>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function getCookie(cookieName) {
+        const cookiesArray = document.cookie.split(';');
+        for (const cookie of cookiesArray) {
+            const trimmedCookie = cookie.trim();
+            if (trimmedCookie.startsWith(cookieName + '=')) {
+                return trimmedCookie.substring(cookieName.length + 1);
+            }
+        }
+        return null;
+    }
+    document.getElementById("registerBtn").addEventListener("click", function () {
+        window.location.href = "http://localhost:8000";
+    });
+    function setCsrfTokenAsCookie() {
+        const csrfInput = document.querySelector('[name="csrfmiddlewaretoken"]');
+        if (csrfInput) {
+            const csrfToken = csrfInput.value;
+            document.cookie = `csrftoken=${csrfToken}; path=/;`;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        setCsrfTokenAsCookie();
+    });
+    d = document.getElementById("but")
+    console.log(d)
+    d.addEventListener('click', () => {
+        const csrfToken = getCookie('csrftoken');
+        console.log(csrfToken + "how crsf")
+        const inputs = document.getElementsByTagName("input")
+        f = inputs[0]
+        g = inputs[1]
+        h = inputs[2]
+        const a = {}
+        if (f==null || g==null || h==null) {
+            return
+        }
+        a['firstName'] = f.value
+        a['secondName'] = g.value
+        a['adhaarNumber'] = h.value
+        fetch('http://localhost:8000/otp', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify(a)
+        }).then(response => response.json()).then((response) => {
+            console.log(JSON.stringify(response))
+            if (response.verification === "faliure") {
+                alert("Enter correct details")
+            }
+            else {
+                document.getElementById("Verify").disabled = false
+                localStorage.setItem("OTP", `${response.verification}`);
+                document.getElementById("OTP1").disabled = false
+                inputs[0].disabled=true
+                inputs[1].disabled=true
+                inputs[2].disabled=true
+                alert("An OTP send to your registration number,please enter!!")
+
+            }
+        })
+    })
+    v = document.getElementById("Verify")
+    v.addEventListener('click', () => {
+        if ((localStorage.getItem("OTP")) == document.getElementById("OTP1").value) {
+            const csrfToken = getCookie('csrftoken');
+          //  localStorage.removeItem("OTP")
+            const a = {}
+            a['adhaarNumber'] = document.getElementsByTagName('input')[2].value
+            console.log(a)
+            fetch('http://localhost:8000/setCookie', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify(a)
+            }).then((e)=>{
+                console.log(e.body)
+            }).catch((e)=>{
+                console.log(e+"error")
+            })
+          window.location = "http://localhost:8000/voting";
+        } else {
+            alert("Enter correct OTP")
+        }
+    })
+    d2 = document.getElementById("but2")
+    console.log(d2)
+    d2.addEventListener('click', () => {
+        const csrfToken = getCookie('csrftoken');
+        console.log(csrfToken + "how crsf")
+        inputs = document.getElementsByTagName("input")
+        f = inputs[5]
+        g = inputs[6]
+        h = inputs[7]
+        a = {}
+        a['firstName'] = f.value
+        a['secondName'] = g.value
+        a['adhaarNumber'] = h.value
+        console.log(`${f.value},${g.value},${h.value} + values`)
+        fetch('http://localhost:8000/otp', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify(a)
+        }).then(response => response.json()).then((response) => {
+            console.log(JSON.stringify(response))
+            if (response.verification === "faliure") {
+                alert("Enter correct details")
+            }
+            else {
+                v = document.getElementById("registerBtn")
+                localStorage.setItem("OTP2", `${response.verification}`);
+                document.getElementById("OTP2").disabled = false
+                v.disabled = false
+                inputs[5].disabled=true
+                inputs[6].disabled=true
+                inputs[7].disabled=true
+                alert("An OTP send to your registration number,please enter!!")
+            }
+        })
+    })
+    v = document.getElementById("registerBtn")
+    v.addEventListener('click', () => {
+        if ((localStorage.getItem("OTP2")) == document.getElementById("OTP2").value) {
+            localStorage.removeItem("OTP2")
+            inputs = document.getElementsByTagName("input")
+            window.location = "http://localhost:8000/form";
+        } else {
+            alert("Enter correct OTP")
+        }
+    })
+</script>
+
+</html>
